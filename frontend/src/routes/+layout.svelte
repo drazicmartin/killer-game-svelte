@@ -1,6 +1,7 @@
 <script>
 	import Header from './Header.svelte';
 	import './styles.css';
+	import FaRegHeart from 'svelte-icons/fa/FaRegHeart.svelte'
 </script>
 
 <div class="app">
@@ -11,7 +12,9 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<p>
+			Make with <span class="icon"><FaRegHeart /></span> by Drazic MARTIN	
+		</p>
 	</footer>
 </div>
 
@@ -49,5 +52,11 @@
 		footer {
 			padding: 12px 0;
 		}
+	}
+
+	.icon {
+		color: red;
+		width: 15px;
+		display: inline-block;
 	}
 </style>
