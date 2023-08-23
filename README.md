@@ -1,8 +1,8 @@
 # killer-game-svelte
 Killer Game app with svelte
 
-Frontend: svelte & SvelteKit
-backend: supabase
+- Frontend: svelte & SvelteKit
+- backend: supabase
 
 
 # Development
