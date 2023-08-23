@@ -5,11 +5,27 @@ Killer Game app with svelte
 - backend: supabase
 
 
+# Init
+
+## Front
+```
+cd frontend
+cp .env.example .env
+npm install
+```
+
+## Back
+```
+cd backend\docker
+cp .env.example .env
+```
+
+Populate `frontend\.env` with corresponding values in `backend\docker\.env`
+
 # Development
 
 ## Front
 ```bash
-cd frontend
 
 npm run --prefix frontend dev
 # or start the server and open the app in a new browser tab
@@ -42,3 +58,4 @@ Each of the APIs are available through the the same API gateway:
 ## TODO
 
 - [ ] direct message system between killer and target
+- [X] Login / Register
