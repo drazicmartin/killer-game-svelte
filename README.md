@@ -4,10 +4,10 @@ Killer Game app with svelte
 Frontend: svelte & SvelteKit
 backend: supabase
 
-# Front
 
-## Development
+# Development
 
+## Front
 ```bash
 cd frontend
 
@@ -16,9 +16,7 @@ npm run --prefix frontend dev
 npm run --prefix frontend dev -- --open
 ```
 
-# Back
-## Development
-
+## Back
 ```bash
 # start
 docker compose -f backend/docker/docker-compose.yml up -d 
