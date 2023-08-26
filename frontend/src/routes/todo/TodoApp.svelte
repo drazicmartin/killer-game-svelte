@@ -1,13 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import type { User } from "@supabase/supabase-js";
   import { supabase } from "$lib/db";
   import Auth from "$lib/Auth.svelte";
-  import type { User } from "@supabase/supabase-js";
   import Home from "$lib/Home.svelte";
 
   let user: User;
 
-  onMount(() => {
+  onMount(() => { 
     supabase.auth.getSession().then(({ data: { session } }) => {
       user = session?.user ?? null;
     });
@@ -34,3 +34,38 @@
     </div>
   {/if}
 </div>
+
+<style>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  /* Write your own custom component styles here */
+  .btn-black {
+    @apply border border-black bg-black text-white font-bold py-2 px-4 rounded text-center;
+  }
+  .btn-black:hover {
+    @apply transition duration-150 bg-white text-black;
+  }
+  .btn-black-outline {
+    @apply border border-black text-black py-2 px-4 rounded font-bold text-center;
+  }
+  .btn-black-outline:hover {
+    @apply transition duration-150 bg-black text-white;
+  }
+
+  /* Your own custom utilities */
+
+  html,
+  body,
+  #app {
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    display: block;
+  }
+</style>
