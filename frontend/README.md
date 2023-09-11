@@ -59,6 +59,13 @@ create policy "Individuals can delete their own todos." on todos for
     delete using (auth.uid() = user_id);
 ```
 
+also for loggin if u are not using email confiramation set
+```bash
+[...]
+ENABLE_EMAIL_AUTOCONFIRM=true
+[...]
+```
+
 ## Authors
 
 - [Supabase](https://supabase.com)
