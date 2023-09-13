@@ -4,7 +4,7 @@ import { redirect } from '@sveltejs/kit'
 
 export const actions = {
     delete_game: async ({ request, locals: { supabase }, params }) => {
-        const game_id = params.game_id as number;
+        const game_id = params.game_id as unknown as number;
 
         if (!game_id) {
             return fail(400, {
@@ -17,8 +17,6 @@ export const actions = {
             .delete()
             .eq('id', game_id);
         
-        console.log(error);
-        console.log(game_id);
             
         if (error) {
             return fail(500, { message: 'Server error. Try again later.', success: false })
