@@ -19,11 +19,11 @@ export const load = async ({ parent, params }) => {
 
   let game = await fetchGame(supabase, params.game_id)
 
-  let is_creator = session.user.id == game.created_by;
+  let is_admin = session.user.id == game.user_id;
 
   return {
     user: session.user,
     game,
-    is_creator,
+    is_admin: is_admin,
   }
 }

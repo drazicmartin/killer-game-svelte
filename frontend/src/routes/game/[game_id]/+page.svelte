@@ -34,7 +34,7 @@
         <h2 class="font-semibold text-3xl text-slate-900">
             Game : {data.game.name}
         </h2>
-        {#if data?.is_creator}
+        {#if data?.is_admin}
         <form bind:this={delete_game_form} method="POST" action="?/delete_game" on:submit|preventDefault={handleSubmit}>
             <input type="hidden" value="{game_id}">
             <button
