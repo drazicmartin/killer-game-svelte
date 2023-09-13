@@ -2,6 +2,7 @@
     import { page } from '$app/stores';
     import { Modal, getModalStore } from '@skeletonlabs/skeleton';
     import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
+    import IoIosWarning from 'svelte-icons/io/IoIosWarning.svelte'
 			
     const modalStore = getModalStore();
                         
@@ -55,11 +56,46 @@
         </form>
       </div>
     </header>
-    <div class="container mx-auto p-8 space-y-8">
-        <section>
-            <h2>
-                Game ID : {game_id}
-            </h2>
-        </section>
+    <div class="flex justify-center mx-2">
+        <h2 class="grow max-w-2xl hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white">
+            Game ID : {game_id}
+        </h2>
     </div>
+    <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 text-sm leading-6">
+        <div class="text-center grow hover:border-blue-500 hover:border-solid hover:bg-blue-100 hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
+            <h2>Your Principal target</h2>
+            <div class="flex flex-col">
+                <div>01</div>
+                <div>02</div>
+                <div class="flex flex-row">
+                    <div class="basis-1/3 flex justify-center">
+                        <div class="icon">
+                            <IoIosWarning />
+                        </div>
+                    </div>
+                    <div class="basis-1/3 flex justify-center">Unknow</div>
+                    <div class="basis-1/3 flex justify-center">
+                        <div class="icon">
+                            <IoIosWarning />
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+        <div class="text-center grow hover:border-blue-500 hover:border-solid hover:bg-blue-100 hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
+            <div class="flex flex-col">
+                <div>01</div>
+                <div>02</div>
+                <div>Unknow</div>
+            </div>
+        </div>
+    </ul>
 </section>
+
+<style>
+    .icon {
+        color: red;
+        width: 32px;
+        height: 32px;
+    }
+</style>
