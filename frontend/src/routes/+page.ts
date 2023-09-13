@@ -1,10 +1,11 @@
 // src/routes/profile/+page.ts
 import { redirect } from '@sveltejs/kit'
 
-async function fetchCreatedGames(supabase){
+async function fetchCreatedGames(supabase, session){
     let { data, error } = await supabase
         .from("games")
-        .select("*");
+        .select("*")
+        .eq("user_id", session.user.id);
     if (error) {
         return error;
     } else {
@@ -12,10 +13,10 @@ async function fetchCreatedGames(supabase){
     }
 };
 
-async function  fetchGames(supabase){
-  const { data, error } = await supabase.from('games').select(`
+async function  fetchPlayers(supabase){
+  const { data, error } = await supabase.from('players').select(`
       *,
-      players (*)
+      games (*)
     `);
     if (error) {
         return error;
@@ -32,11 +33,9 @@ export const load = async ({ parent }) => {
     };
   }
 
-  console.log(await fetchGames(supabase));
-
   return {
     user: session.user,
-    created_games: await fetchCreatedGames(supabase),
-    games: [],
+    created_games: await fetchCreatedGames(supabase, session),
+    players: await fetchPlayers(supabase),
   }
 }
