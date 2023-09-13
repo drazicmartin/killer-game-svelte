@@ -27,9 +27,9 @@
         <section>
             <form action="?/create_game" method="POST" class="flex flex-col">
                 <span>Game Name</span>
-                <input class="input" type="text" name="game_name" placeholder="Game Name" />
+                <input class="input" type="text" name="game_name" value={form?.game_name ?? ""} placeholder="Game Name" />
                 <div class="my-100">Game Start Time</div>
-                <input class="input" title="Input (datetime-local)" name="date" type="datetime-local" />
+                <input class="input" title="Input (datetime-local)" value={form?.date ?? ""} name="date" type="datetime-local" />
 
                 <button type="submit" class="btn variant-filled-surface my-2">Create</button>
             </form>

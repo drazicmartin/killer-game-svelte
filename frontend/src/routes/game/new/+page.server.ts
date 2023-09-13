@@ -11,15 +11,14 @@ export const actions = {
 
         if (!game_name) {
             return fail(400, {
-                error: 'Please enter a game name'
+                error: 'Please enter a game name',
+                date,
             });
         }
         if (!date) {
             return fail(400, {
                 error: 'Please enter a start day and time',
-                values: {
-                    game_name
-                }
+                game_name,
             });
         }
 
