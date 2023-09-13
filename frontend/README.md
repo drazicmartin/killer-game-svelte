@@ -66,6 +66,15 @@ ENABLE_EMAIL_AUTOCONFIRM=true
 [...]
 ```
 
+## Databse function
+- add_self_to_game
+```plpgsql
+begin
+  insert into players(user_id, game_id)
+  values (auth.uid(), input_game_id);
+end;
+```
+
 ## Authors
 
 - [Supabase](https://supabase.com)
