@@ -1,12 +1,16 @@
 <script lang="ts">
+  import { GetGameStatusColor } from '$lib/Games.js';
+
   export let data;
 
-  let games = [];
-  $: (games = data.games);
+  let created_games = [];
+  let players = [];
+  $: (created_games = data.created_games);
+  $: (players = data.players);
 
 </script>
 
-<section>
+<section class="divide-y">
   <header class="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6 ">
     <div class="flex items-center justify-between">
       <h2 class="font-bold text-3xl text-slate-900">Games</h2>
@@ -26,22 +30,45 @@
       </form>
     </div>
   </header>
-  <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 text-sm leading-6">
-    {#each games as game (game.id)}
-      <li>
-        <a href="game/{game.id}" class="grow hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
-          <div class="content">
-            <div class="content1">
-              {game.name}
+  <div>
+    <h2 class="text-center">Admin Games</h2>
+    <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 text-sm leading-6">
+      {#each created_games as game (game.id)}
+        <li>
+          <a href="game/{game.id}" class="grow hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
+            <div class="content">
+              <div class="content1">
+                {game.name}
+              </div>
+              <div class="content2">
+                <span class="dot" style:background-color={GetGameStatusColor(game)}></span>
+              </div>
             </div>
-            <div class="content2">
-              <span class="dot" style:background-color={game.is_finish ? "red" : "green"}></span>
+          </a>
+        </li>
+      {/each}
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-center">Playing Games</h2>
+    <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 text-sm leading-6">
+      {#each players as player (player.game_id)}
+        <li>
+          <a href="game/{player.games.id}" class="grow hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
+            <div class="content">
+              <div class="content1">
+                {player.games.name}
+              </div>
+              <div class="content2">
+                <span class="dot" style:background-color={GetGameStatusColor(player.game)}></span>
+              </div>
             </div>
-          </div>
-        </a>
-      </li>
-    {/each}
-  </ul>
+          </a>
+        </li>
+      {/each}
+    </ul>
+  </div>
 </section>
   
 <style>
