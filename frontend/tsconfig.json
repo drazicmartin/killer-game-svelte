@@ -19,7 +19,8 @@
     "paths": {
       "$lib":["./src/lib"],
       "$lib/*":["./src/lib/*"]
-		}
+		},
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
   "references": [{ "path": "./tsconfig.node.json" }]
