@@ -2,10 +2,10 @@
     import { page } from '$app/stores';
     import { Modal, getModalStore } from '@skeletonlabs/skeleton';
     import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
+    import Mission from "$lib/Mission.svelte";
     import IoIosWarning from 'svelte-icons/io/IoIosWarning.svelte'
 			
-    const modalStore = getModalStore();
-                        
+    const modalStore = getModalStore(); 
 
     export let data;
     let delete_game_form = undefined;
@@ -13,6 +13,11 @@
     let game_name;
     $: game_name = data.game.game_name;
     $: game_id = data.game.id;
+    
+    let mission_1;
+    let mission_2;
+    $: mission_1 = data.game.state.loop[data.user.id].m1;
+    $: mission_2 = data.game.state.loop[data.user.id].m2;
     
     const modal: ModalSettings = {
         type: 'confirm',
@@ -62,33 +67,16 @@
         </h2>
     </div>
     <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 text-sm leading-6">
-        <div class="text-center grow hover:border-blue-500 hover:border-solid hover:bg-blue-100 hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
-            <h2>Your Principal target</h2>
-            <div class="flex flex-col">
-                <div>01</div>
-                <div>02</div>
-                <div class="flex flex-row">
-                    <div class="basis-1/3 flex justify-center">
-                        <div class="icon">
-                            <IoIosWarning />
-                        </div>
-                    </div>
-                    <div class="basis-1/3 flex justify-center">Unknow</div>
-                    <div class="basis-1/3 flex justify-center">
-                        <div class="icon">
-                            <IoIosWarning />
-                        </div>
-                    </div>
-                    </div>
-            </div>
-        </div>
-        <div class="text-center grow hover:border-blue-500 hover:border-solid hover:bg-blue-100 hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8">
-            <div class="flex flex-col">
-                <div>01</div>
-                <div>02</div>
-                <div>Unknow</div>
-            </div>
-        </div>
+        <Mission
+            title="Your Principal Target" 
+            mission={mission_2.mission} 
+            target_name={mission_2.target}
+          />
+        <Mission
+            title="Your Second Target" 
+            mission={mission_2.mission} 
+            target_name={mission_2.target}
+          />
     </ul>
 </section>
 
