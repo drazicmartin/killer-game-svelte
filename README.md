@@ -26,10 +26,10 @@ Populate `frontend\.env` with corresponding values in `backend\docker\.env`
 
 ## Front
 ```bash
-
-npm run --prefix frontend dev
+cd fonrtend
+npm run dev
 # or start the server and open the app in a new browser tab
-npm run --prefix frontend dev -- --open
+npm run dev -- --open
 ```
 
 ## Back
