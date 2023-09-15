@@ -13,11 +13,12 @@ async function fetchCreatedGames(supabase, session){
     }
 };
 
-async function  fetchPlayers(supabase){
+async function  fetchPlayers(supabase, user_id){
   const { data, error } = await supabase.from('players').select(`
       *,
       games (*)
-    `);
+    `)
+    .eq("user_id", user_id);
     if (error) {
         return error;
     } else {
@@ -36,6 +37,6 @@ export const load = async ({ parent }) => {
   return {
     user: session.user,
     created_games: await fetchCreatedGames(supabase, session),
-    players: await fetchPlayers(supabase),
+    players: await fetchPlayers(supabase, session.user.id),
   }
 }
