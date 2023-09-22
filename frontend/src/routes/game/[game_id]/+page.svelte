@@ -45,7 +45,6 @@
     function handleFormKill(){
         modalStore.trigger(modal);
     }
-
 </script>
 
 <section>
