@@ -36,6 +36,7 @@
     "@supabase/supabase-js": "^2.33.1",
     "@sveltejs/adapter-auto": "^2.1.0",
     "@sveltejs/kit": "^1.23.0",
+    "p5-svelte": "^3.1.2",
     "svelte-icons": "^2.1.0"
   }
 }
