@@ -14,6 +14,6 @@
                 {mission}
             </div>
         </div>
-        <button type="button" class="btn variant-filled mt-3 bg-red-600">I killed !</button>
+        <slot name="kill_form"/>
     </div>
 </div>
