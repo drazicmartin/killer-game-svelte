@@ -4,8 +4,7 @@ Killer Game app with svelte
 - Frontend: svelte & SvelteKit
 - backend: supabase
 
-
-# Init
+# Init repo
 
 ## Front
 ```
@@ -55,7 +54,31 @@ Each of the APIs are available through the the same API gateway:
 - Storage: http://<your-domain>:8000/storage/v1/
 - Realtime: http://<your-domain>:8000/realtime/v1/
 
+## WIL
+
+- supabase:
+    - has a pretty bad documentation
+    - loggin/registrer system is not easy to implement
+    - join table does no work very well
+- svlete:
+    - is very fun and easy !
+
 ## TODO
 
-- [ ] direct message system between killer and target
 - [X] Login / Register
+- [X] Init the game
+- [X] Shuffle Game State
+- [X] Game admin settings
+- [X] Game player settings
+- [X] Kill logic
+- [X] Add score
+- [ ] Direct message system between killer and target
+- [ ] People must not have same mission has their target mission.
+- [ ] Add leaderboard
+- [ ] Allow dead to follow the game state
+- [ ] Quit game
+- [ ] Power up
+    - [ ] change mission
+
+## Contributors
+- [Drazic MARTIN](https://github.com/drazicmartin)
