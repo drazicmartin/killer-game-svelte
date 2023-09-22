@@ -3,7 +3,7 @@ import { fail } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
 
 export const actions = {
-    create_game: async ({ request, locals: { supabase } }) => {
+    create_game: async ({ request, locals: { supabase }}) => {
         const formData = await request.formData();
     
         const game_name = formData.get('game_name') as string;
