@@ -75,6 +75,32 @@ begin
 end;
 ```
 
+- add_player_to_game
+```plpgsql
+create or replace function add_player_to_game(user_email text, game_id integer) returns varchar
+security definer
+set search_path = public
+VOLATILE
+as $$
+DECLARE
+user_id uuid;
+begin
+  select u.id into user_id
+  from auth.users as u
+  where u.email = user_email;
+
+  if not found then
+    raise 'User does not exists';
+  end if;
+
+  insert into players(user_id, game_id, email)
+  values (user_id, game_id, user_email);
+
+  return 'Success';
+end;
+$$ language plpgsql;
+```
+
 ## Authors
 
 - [Supabase](https://supabase.com)
