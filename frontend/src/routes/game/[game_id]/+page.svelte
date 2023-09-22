@@ -3,32 +3,46 @@
     import { Modal, getModalStore } from '@skeletonlabs/skeleton';
     import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
     import Mission from "$lib/Mission.svelte";
-    import IoIosWarning from 'svelte-icons/io/IoIosWarning.svelte'
-			
-    const modalStore = getModalStore(); 
+    import MdSettings from 'svelte-icons/md/MdSettings.svelte'
+    import { tick } from 'svelte';
+	
+    const modalStore = getModalStore();
 
     export let data;
-    let delete_game_form = undefined;
+    export let form;
+
+    let kill_form;
 
     let game_name;
     $: game_name = data.game.game_name;
     $: game_id = data.game.id;
+    $: score = data.self_player.score;
+    $: kill_history = data.kill_history;
     
     let mission_1;
-    let mission_2;
-    $: mission_1 = data.game.state.loop[data.user.id].m1;
-    $: mission_2 = data.game.state.loop[data.user.id].m2;
-    
+    $: mission_1 = data.game.state?.loop[data.user.id];
+
+    let password_value;
+
     const modal: ModalSettings = {
-        type: 'confirm',
+        type: 'prompt',
         // Data
-        title: `Confirm delete ${game_name} Game`,
-        body: 'Are you sure you wish to proceed?',
-        // TRUE if confirm pressed, FALSE if cancel pressed
-        response: (r: boolean) => r ? delete_game_form.submit() : null,
+        title: 'Kill confirmation',
+        body: 'Ask the person you just kill to enter his game\'s password (default is "password")',
+        // Populates the input value and attributes
+        value: '',
+        valueAttr: { type: 'password', required: true },
+        // Returns the updated response value
+        response: async (r: string) => {
+            password_value = r;
+            await tick();
+            if (!!r){
+                kill_form.submit();
+            }
+        },
     };
 
-    function handleSubmit(){
+    function handleFormKill(){
         modalStore.trigger(modal);
     }
 
@@ -36,54 +50,50 @@
 
 <section>
     <header class="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6 ">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center">
         <h2 class="font-semibold text-3xl text-slate-900">
             Game : {data.game.name}
         </h2>
-        {#if data?.is_admin}
-        <form bind:this={delete_game_form} method="POST" action="?/delete_game" on:submit|preventDefault={handleSubmit}>
-            <input type="hidden" value="{game_id}">
-            <button
-                type="submit"
-                class="btn variant-filled-primary"
-            >
-                Delete Game
-            </button>
-        </form>
-        {/if}
+        <a class="h-10 mx-10 flex" href="/game/{game_id}/options">
+            <MdSettings />
+        </a>
         <form method="POST" action="/auth/logout">
-          <a
+        <a
             href="/"
             class="btn variant-filled"
-          >
+        >
             Return
         </a>
         </form>
       </div>
     </header>
-    <div class="flex justify-center mx-2">
-        <h2 class="grow max-w-2xl hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white">
-            Game ID : {game_id}
-        </h2>
-    </div>
-    <ul class="bg-slate-50 p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 text-sm leading-6">
+    {#if form}
+        <div class="bg-{form?.success ? "green" : "red"}-100 border border-{form?.success ? "green" : "red"}-400 text-{form?.success ? "green" : "red"}-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">{form?.success ? "Success" : "Error"}</strong>
+            <span class="block sm:inline">{form.message}</span>
+        </div>
+    {/if}
+    <h2 class="grow hover:border-green-700 hover:border-solid hover:bg-white hover:text-green-700 group w-full flex items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 bg-white">
+        Your score : {score}
+    </h2>
+    <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 text-sm leading-6">
         <Mission
-            title="Your Principal Target" 
-            mission={mission_2.mission} 
-            target_name={mission_2.target}
-          />
-        <Mission
-            title="Your Second Target" 
-            mission={mission_2.mission} 
-            target_name={mission_2.target}
-          />
+            title="Your Target"
+            mission={mission_1?.mission}
+            target_name={mission_1?.target_name}
+        >
+        <form bind:this={kill_form} action="?/kill_player" method="POST" slot="kill_form" on:submit|preventDefault={handleFormKill}>
+            <input type="hidden" name="killed_player_password" bind:value={password_value}>
+            <input type="hidden" name="killed_player_id" value={mission_1.target_id}>
+            <button type="submit" class="btn variant-filled mt-3 bg-red-600 max-w-xl w-full">I killed !</button>
+        </form>
+        </Mission>
+    </ul>
+    <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6     gap-4 text-sm leading-6">
+        {#each kill_history || [] as name}
+            <li class="text-center grow hover:border-black hover:border-solid hover:bg-red-100 hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-red-600 font-medium py-3 px-8">
+                {name}
+            </li>
+        {/each}
     </ul>
 </section>
-
-<style>
-    .icon {
-        color: red;
-        width: 32px;
-        height: 32px;
-    }
-</style>
