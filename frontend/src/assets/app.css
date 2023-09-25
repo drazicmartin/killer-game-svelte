@@ -4702,6 +4702,14 @@ input[type='file']:not(.file-dropzone-input)::file-selector-button:disabled:acti
   width: 100%;
 }
 
+.w-60 {
+  width: 15rem;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -5308,6 +5316,11 @@ input[type='file']:not(.file-dropzone-input)::file-selector-button:disabled:acti
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {

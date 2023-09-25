@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from '$app/stores';
     import { Modal, getModalStore } from '@skeletonlabs/skeleton';
+    import GiDeadHead from 'svelte-icons/gi/GiDeadHead.svelte'
     import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
     import Mission from "$lib/Mission.svelte";
     import MdSettings from 'svelte-icons/md/MdSettings.svelte'
@@ -72,22 +73,49 @@
             <span class="block sm:inline">{form.message}</span>
         </div>
     {/if}
+
     <h2 class="grow hover:border-green-700 hover:border-solid hover:bg-white hover:text-green-700 group w-full flex items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 bg-white">
         Your score : {score}
     </h2>
-    <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 text-sm leading-6">
-        <Mission
-            title="Your Target"
-            mission={mission_1?.mission}
-            target_name={mission_1?.target_name}
-        >
-        <form bind:this={kill_form} action="?/kill_player" method="POST" slot="kill_form" on:submit|preventDefault={handleFormKill}>
-            <input type="hidden" name="killed_player_password" bind:value={password_value}>
-            <input type="hidden" name="killed_player_id" value={mission_1.target_id}>
-            <button type="submit" class="btn variant-filled mt-3 bg-red-600 max-w-xl w-full">I killed !</button>
-        </form>
-        </Mission>
-    </ul>
+
+    {#if data.self_player.is_dead}
+        <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 text-sm leading-6">
+            <div class="flex flex-col justify-center items-center">
+                <div class="flex items-center">
+                    <span class="flex w-10 text-red-500">
+                        <GiDeadHead />
+                    </span>
+                    <div class="text-red-500 text-2xl">
+                        You are dead ! 
+                    </div>
+                    <span class="flex w-10 text-red-500">
+                        <GiDeadHead />
+                    </span>
+                </div>
+                <div class="text-center mt-2 text-base">
+                    Follow the game state, but tell and show no one what you know !
+                    <a href="/game/{game_id}/state" class="btn variant-filled mt-3 bg-blue-600 max-w-xl w-full">Game state</a>
+                </div>
+            </div>
+        </ul>
+    {:else}    
+        <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 text-sm leading-6">
+            <Mission
+                title="Your Target"
+                mission={mission_1?.mission}
+                target_name={mission_1?.target_name}
+            >
+            <form bind:this={kill_form} action="?/kill_player" method="POST" slot="kill_form" on:submit|preventDefault={handleFormKill}>
+                <input type="hidden" name="killed_player_password" bind:value={password_value}>
+                <input type="hidden" name="killed_player_id" value={mission_1.target_id}>
+                <button type="submit" class="btn variant-filled mt-3 bg-red-600 max-w-xl w-full">I killed !</button>
+            </form>
+            </Mission>
+        </ul>
+    {/if}
+    <h2 class="text-lg text-center">
+        Your kill feed : 
+    </h2>
     <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6     gap-4 text-sm leading-6">
         {#each kill_history || [] as name}
             <li class="text-center grow hover:border-black hover:border-solid hover:bg-red-100 hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-red-600 font-medium py-3 px-8">

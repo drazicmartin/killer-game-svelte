@@ -71,8 +71,11 @@
 	};
 </script>
 
-<header class="bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6 ">
-    <div class="flex justify-end">
+<header class="flex bg-white space-y-4 p-4 sm:px-8 sm:py-6 lg:p-4 xl:px-8 xl:py-6 items-center justify-center">
+    <h2 class="font-semibold text-3xl text-slate-900">
+        Game State
+    </h2>
+    <div class="flex justify-end grow">
       <a  
       href="/game/{game_id}"
       class="btn variant-filled mx-10">
