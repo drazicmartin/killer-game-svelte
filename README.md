@@ -60,6 +60,7 @@ Each of the APIs are available through the the same API gateway:
     - has a pretty bad documentation
     - loggin/registrer system is not easy to implement
     - join table does no work very well
+    - fetch/insert/update query are easy !
 - svlete:
     - is very fun and easy !
 
@@ -72,13 +73,13 @@ Each of the APIs are available through the the same API gateway:
 - [X] Game player settings
 - [X] Kill logic
 - [X] Add score
-- [ ] Direct message system between killer and target
-- [ ] People must not have same mission has their target mission.
-- [ ] Add leaderboard
-- [ ] Allow dead to follow the game state
+- [X] People must not have same mission has their target mission.
+- [X] Allow dead to follow the game state
 - [ ] Quit game
 - [ ] Power up
     - [ ] change mission
+- [ ] Direct message system between killer and target
+- [ ] Add leaderboard
 
 ## Contributors
 - [Drazic MARTIN](https://github.com/drazicmartin)
