@@ -1,6 +1,7 @@
 <!-- // src/routes/login/+page.svelte -->
 <script>
 	import { enhance } from '$app/forms'
+    import GiHalfDead from 'svelte-icons/gi/GiHalfDead.svelte'
 	export let form
 </script>
 
@@ -10,63 +11,112 @@
 </h4>
 {/if}
 
-<form method="POST" action="?/login">
-    <div
-    class="w-full h-full sm:h-auto sm:w-2/5 max-w-sm p-5 bg-white shadow flex flex-col text-base"
-    >
-    <span
-        class="font-sans text-4xl text-center pb-2 mb-1 border-b mx-4 align-center"
-    >
-        Login / Register
-    </span>
-    <label class="mt-3 mb-2 font-medium text-lg" for="email">
-        <span class="font-mono mr-1 text-red-400">*</span>Email:
-    </label>
-    <input
-        id="email"
-        class="bg-gray-100 border py-1 px-3"
-        type="email"
-        name="email"
-        value={form?.email ?? ''}
-        required
-    />
-    <label class="mt-3 mb-2 font-medium text-lg" for="password">
-        <span class="font-mono mr-1 text-red-400">*</span>Password:
-    </label>
-    <input
-        id="password"
-        class="bg-gray-100 border py-1 px-3"
-        type="password"
-        name="password"
-        required
-    />
-
-    <div class="mt-2 flex">
-        <span class="block mx-1.5 w-full rounded-md shadow-sm">
-            
-            <button
-                formaction="?/register"
-                type="submit"
-                class="flex w-full justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out"
-                >
-                Register
-            </button>
-        </span>
-        <span class="block w-full mx-1.5 rounded-md shadow-sm">
-            <button
-                type="submit"
-                class="flex w-full justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out"
-                >
-                Login
-            </button>
-        </span>
+<section class="gradient-form h-full bg-neutral-200 dark:bg-neutral-700">
+    <div class="container h-full p-10">
+      <div
+        class="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+        <div class="w-full">
+          <div
+            class="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+            <div class="g-0 lg:flex lg:flex-wrap">
+              <!-- Left column container-->
+              <div class="px-4 md:px-0 lg:w-6/12">
+                <div class="md:mx-6 md:p-12">
+                  <!--Logo-->
+                  <div class="text-center">
+                    <div class="h-32">
+                        <GiHalfDead />
+                    </div>
+                    <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">
+                      Killer Game !
+                    </h4>
+                  </div>
+  
+                  <form method="POST" action="?/login">
+                    <p class="mb-4">Please login to your account</p>
+                    <!--Username input-->
+                    <div class="relative mb-4 border-solid" data-te-input-wrapper-init>
+                      <input
+                        type="text"
+                        class="peer border-solid border-2 border-indigo-600 block min-h-[auto] w-full rounded bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                        id="exampleFormControlInput1"
+                        value={form?.email ?? ''}
+                        name="email"
+                        required
+                        placeholder="Email" />
+                      <label
+                        for="exampleFormControlInput1"
+                        class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                        >Email
+                      </label>
+                    </div>
+  
+                    <!--Password input-->
+                    <div class="relative mb-4" data-te-input-wrapper-init>
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        class="peer border-solid border-2 border-indigo-600 block min-h-[auto] w-full rounded bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                        id="exampleFormControlInput11"
+                        placeholder="Password" />
+                      <label
+                        for="exampleFormControlInput11"
+                        class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                        >Password
+                      </label>
+                    </div>
+  
+                    <!--Submit button-->
+                    <div class="mb-12 pb-1 pt-1 text-center">
+                      <button
+                        class="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                        type="submit"
+                        data-te-ripple-init
+                        data-te-ripple-color="light"
+                        style="
+                          background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+                        ">
+                        Log in
+                      </button>
+                      <button
+                        class="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                        type="submit"
+                        data-te-ripple-init
+                        data-te-ripple-color="light"
+                        style="
+                          background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+                        ">
+                        Register
+                      </button>
+  
+                      <!-- Forgot password link
+                      <a href="#!">Forgot password?</a> -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+  
+              <!-- Right column container with background and description-->
+              <div
+                class="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
+                style="background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)">
+                <div class="px-4 py-6 text-white md:mx-6 md:p-12">
+                  <h4 class="mb-6 text-xl font-semibold">
+                    We are more than just a company
+                  </h4>
+                  <p class="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex
+                    ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-</form>
-
-<style>
-    form {
-        display: flex;
-        justify-content: space-evenly;
-    }
-</style>
+  </section>
