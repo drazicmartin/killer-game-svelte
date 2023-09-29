@@ -7,13 +7,6 @@ export function GetGameStatusColor(game) {
     return "orange"
 }
 
-async function resetPlayerScore(supabase: SupabaseClient, game_id: number){
-    await supabase
-        .from("players")
-        .update({score: 0})
-        .eq("game_id", game_id);
-}
-
 function shuffle(array) {
     let array_copy = [...array];
     let currentIndex = array_copy.length,  randomIndex;
@@ -59,6 +52,7 @@ export async function ShuffleGameState(supabase: SupabaseClient, game_id: number
 
     let remaining_mission = shuffle(missions);
     let alive_players_shuffled = shuffle(alive_players);
+    let last_mission;
 
     alive_players_shuffled.forEach((player, index, alive_players) => {
         if (remaining_mission.length <= 2){
@@ -70,10 +64,16 @@ export async function ShuffleGameState(supabase: SupabaseClient, game_id: number
         let target_id = alive_players[target_index].user_id;
         let mission = remaining_mission.pop();
         let desc = mission.description;
+        
+        while(last_mission == mission){
+            mission = remaining_mission.pop();
+        }
     
         state.loop[player.user_id].mission = desc;
         state.loop[player.user_id].target_id = target_id;
         state.loop[player.user_id].target_name = target_name;
+
+        last_mission = mission;
     });
 
     await updateGameState(supabase, game_id, state);
@@ -82,6 +82,16 @@ export async function ShuffleGameState(supabase: SupabaseClient, game_id: number
         success: true,
         message: "Successfully Shuffle Game State"
     }
+}
+
+async function resetPlayer(supabase: SupabaseClient, game_id: number){
+    await supabase
+    .from("players")
+    .update({
+        score: 0,
+        is_dead: false,
+    })
+    .eq("game_id", game_id);
 }
 
 export async function InitGameState(supabase: SupabaseClient, game_id: number){
@@ -113,6 +123,7 @@ export async function InitGameState(supabase: SupabaseClient, game_id: number){
 
     let remaining_mission = shuffle(missions);
     let players_shuffled = shuffle(players);
+    let last_mission;
 
     players_shuffled.forEach((player, index, players) => {
         if (remaining_mission.length <= 2){
@@ -123,6 +134,11 @@ export async function InitGameState(supabase: SupabaseClient, game_id: number){
         let target_name = players[target_index].name;
         let target_id =  players[target_index].user_id;
         let mission = remaining_mission.pop();
+
+        while(last_mission == mission){
+            mission = remaining_mission.pop();
+        }
+
         let desc = mission.description;
 
         let player_mission = {
@@ -134,10 +150,12 @@ export async function InitGameState(supabase: SupabaseClient, game_id: number){
         state.loop[player.user_id] = player_mission;
         state['#players'] += 1;
         state['#alive_players'] += 1;
+
+        last_mission = mission
     });
 
     await updateGameState(supabase, game_id, state);
-    await resetPlayerScore(supabase, game_id);
+    await resetPlayer(supabase, game_id);
 
     return {
         success: true,
