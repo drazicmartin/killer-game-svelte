@@ -24,10 +24,10 @@
                 <div class="md:mx-6 md:p-12">
                   <!--Logo-->
                   <div class="text-center">
-                    <div class="h-32">
+                    <div class="h-32 text-orange-600">
                         <GiHalfDead />
                     </div>
-                    <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">
+                    <h4 class="mb-12 mt-1 pb-1 text-xl text-orange-600 font-semibold">
                       Killer Game !
                     </h4>
                   </div>
@@ -103,14 +103,14 @@
                 style="background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)">
                 <div class="px-4 py-6 text-white md:mx-6 md:p-12">
                   <h4 class="mb-6 text-xl font-semibold">
-                    We are more than just a company
+                    Organize and play killer Game !
                   </h4>
                   <p class="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat.
+                    Killer is a game about killing your target (i.e. complet a given task) before the one that has you in target kill you.
+                    When you kill someone you get his mission back.
+                    <br>
+                    <br>
+                    Made & hoted by Drazic
                   </p>
                 </div>
               </div>
