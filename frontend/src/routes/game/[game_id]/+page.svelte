@@ -107,20 +107,23 @@
             >
             <form bind:this={kill_form} action="?/kill_player" method="POST" slot="kill_form" on:submit|preventDefault={handleFormKill}>
                 <input type="hidden" name="killed_player_password" bind:value={password_value}>
-                <input type="hidden" name="killed_player_id" value={mission_1.target_id}>
+                <input type="hidden" name="killed_player_id" value={mission_1?.target_id}>
                 <button type="submit" class="btn variant-filled mt-3 bg-red-600 max-w-xl w-full">I killed !</button>
             </form>
             </Mission>
         </ul>
     {/if}
-    <h2 class="text-lg text-center">
-        Your kill feed : 
-    </h2>
-    <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6     gap-4 text-sm leading-6">
-        {#each kill_history || [] as name}
-            <li class="text-center grow hover:border-black hover:border-solid hover:bg-red-100 hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-red-600 font-medium py-3 px-8">
-                {name}
-            </li>
-        {/each}
-    </ul>
+    {#if kill_history}
+        
+        <h2 class="text-lg text-center">
+            Your kill feed : 
+        </h2>
+        <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6     gap-4 text-sm leading-6">
+            {#each kill_history || [] as name}
+                <li class="text-center grow hover:border-black hover:border-solid hover:bg-red-100 hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-red-600 font-medium py-3 px-8">
+                    {name}
+                </li>
+            {/each}
+        </ul>
+    {/if}
 </section>
