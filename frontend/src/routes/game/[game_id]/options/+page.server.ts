@@ -178,7 +178,6 @@ export const actions = {
 
         return ShuffleGameState(supabase, game_id);
     },
-
     quit_game: async ({ request, locals: { supabase, getSession }, params }) => {
         let session = await getSession();
         const game_id = params.game_id as unknown as number;
@@ -217,5 +216,37 @@ export const actions = {
             return fail(500, { message: "An error occured", success: false })
         }
 
+    },
+    start_game: async ({ request, locals: { supabase }, params }) => {
+        const game_id = params.game_id as unknown as number;
+
+        await supabase
+            .from("games")
+            .update({
+                is_started: true,
+                is_finish: false
+            })
+            .eq("id", game_id);
+            
+            return {
+                message: "Game Started !",
+                success: true,
+            }
+    },
+    stop_game: async ({ request, locals: { supabase }, params }) => {
+        const game_id = params.game_id as unknown as number;
+        
+        await supabase
+            .from("games")
+            .update({
+                is_finish: true,
+                is_started: false,
+            })
+            .eq("id", game_id);
+
+        return {
+            message: "Game Stopped",
+            success: true,
+        }
     },
 }

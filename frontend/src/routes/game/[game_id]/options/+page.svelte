@@ -27,6 +27,7 @@
     let game_name;
     $: game_name = data.game.name;
     $: game_id = data.game.id;
+    $: game = data.game;
 
     let cmps = [];
     
@@ -171,6 +172,26 @@
                 <svelte:fragment slot="summary">Admin</svelte:fragment>
                 <svelte:fragment slot="content">
                     <div>
+                        <div class="flex flex-row justify-center mx-2 items-center">
+                            <form method="POST" action="?/start_game" class="grow items-center justify-center mx-1">
+                                <button
+                                    type="submit"
+                                    disabled={game.is_started}
+                                    class="btn mt-2 grow max-w-2xl hover:border-green-500 hover:border-solid hover:bg-white hover:text-green-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-green-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
+                                >
+                                    Start Game
+                                </button>
+                            </form>
+                            <form method="POST" action="?/stop_game" class="grow items-center justify-center mx-1">
+                                <button
+                                    type="submit"
+                                    disabled={game.is_finish || !game.is_started}
+                                    class="btn mt-2 grow max-w-2xl hover:border-red-500 hover:border-solid hover:bg-white hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-red-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
+                                >
+                                    Stop Game
+                                </button>
+                            </form>
+                        </div>
                         <form bind:this={shuffle_game_form} on:submit|preventDefault={handleSubmitShuffleGameState} method="POST" action="?/shuffle_game_state" class="flex flex-col items-center justify-center mx-2">
                             <button
                                 type="submit"
@@ -179,7 +200,7 @@
                                 Shuffle Game state
                             </button>
                         </form>
-                        <hr class="h-2 mx-5 my-4 bg-red-500 rounded md:my-10">
+                        <hr class="h-2 mx-5 my-4 bg-gray-500 rounded md:my-10">
                         <div class="grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 mt-4 items-center gap-2">
                             {#each all_players as player, index}
                                 <form bind:this={cmps[index]} method="POST" action="?/delete_user" on:submit|preventDefault={() => handleSubmitDeleteUser(player.name, index)}>
@@ -197,18 +218,18 @@
                             <input required name="player_email" class="input grow max-w-2xl mt-2 text-center" title="Input (email)" type="email" placeholder="john@example.com" autocomplete="email" />
                             <button
                                 type="submit"
-                                class="btn mt-2 grow max-w-2xl hover:border-green-500 hover:border-solid hover:bg-white hover:text-green-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-green-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
+                                class="btn mt-2 grow max-w-2xl hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-blue-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
                             >
                                 Add user
                             </button>
                         </form>
-                        <hr class="h-2 mx-5 my-4 bg-red-500 rounded md:my-10">
+                        <hr class="h-2 mx-5 my-4 bg-gray-500 rounded md:my-10">
                         <form bind:this={reset_game_form} on:submit|preventDefault={handleSubmitResetGameState} method="POST" action="?/reset_game_state" class="flex flex-col items-center justify-center mx-2 my-2">
                             <button
                                 type="submit"
                                 class="btn mt-2 grow max-w-2xl hover:border-red-500 hover:border-solid hover:bg-white hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-red-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
                             >
-                                Reset Game state
+                                Reset Game
                             </button>
                         </form>
                         <form bind:this={delete_game_form} method="POST" action="?/delete_game" on:submit|preventDefault={handleSubmitDeleteGame} class="flex justify-center mx-2 my-2">
@@ -233,7 +254,7 @@
                     <input type="password" name="new_password" required class="input grow max-w-2xl mt-2 text-center" placeholder="new password">
                     <button
                         type="submit"
-                        class="btn grow max-w-2xl mt-2 hover:border-green-500 hover:border-solid hover:bg-white hover:text-green-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-green-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
+                        class="btn grow max-w-2xl mt-2 hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-blue-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
                     >
                         Change password
                     </button>
@@ -246,7 +267,7 @@
             <svelte:fragment slot="summary">Player Name</svelte:fragment>
             <svelte:fragment slot="content">
                 <div class="flex justify-center">
-                    <h2 class="grow max-w-2xl hover:border-green-500 hover:border-solid hover:bg-white hover:text-green-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white">
+                    <h2 class="grow max-w-2xl hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white">
                         Current Name : {data.self_player.name}
                     </h2>
                 </div>
@@ -254,7 +275,7 @@
                     <input type="text" name="name" required class="input grow max-w-2xl mt-2 text-center" placeholder="Name" >
                     <button
                         type="submit"
-                        class="btn grow max-w-2xl mt-2 hover:border-green-500 hover:border-solid hover:bg-white hover:text-green-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-green-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
+                        class="btn grow max-w-2xl mt-2 hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-blue-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
                     >
                         Change name
                     </button>

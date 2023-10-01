@@ -98,7 +98,7 @@
                 </div>
             </div>
         </ul>
-    {:else}    
+    {:else if data.game.is_started}
         <ul class="bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 text-sm leading-6">
             <Mission
                 title="Your Target"
@@ -112,6 +112,13 @@
             </form>
             </Mission>
         </ul>
+    {:else if (!data.game.is_started)}
+        <div class="text-6xl text-center text-red-400 bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4">
+            Game did not started yet
+        </div>
+        <div class="text-3xl text-center text-red-400 bg-white p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4">
+            (Game master will start the game soon.)
+        </div>
     {/if}
     {#if kill_history}
         
