@@ -90,7 +90,5 @@ Each of the APIs are available through the the same API gateway:
     - [ ] change mission
 - [ ] Direct message system between killer and target
 
-PGPASSWORD=pg_password pg_dump --username postgres $POSTGRES_DB
-
 ## Contributors
 - [Drazic MARTIN](https://github.com/drazicmartin)
