@@ -38,12 +38,12 @@ export const load = async ({ parent, params }) => {
 
   let self_player = await fetchSelfPlayer(supabase, session.user.id, params.game_id);
 
-  if (!self_player) {
+  let is_admin = session.user.id == game.user_id;
+  let kill_history = game.state?.loop[session.user.id]?.kill_history;
+  
+  if (!self_player && !is_admin) {
     throw redirect(308, "/");
   }
-
-  let is_admin = session.user.id == game.user_id;
-  let kill_history = game.state.loop[session.user.id]?.kill_history;
 
   return {
     user: session.user,
