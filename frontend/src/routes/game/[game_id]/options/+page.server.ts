@@ -1,7 +1,7 @@
 // src/routes/login/+page.server.js
 import { fail } from '@sveltejs/kit'
 import { redirect } from '@sveltejs/kit'
-import { InitGameState, ShuffleGameState } from '$lib/Games.js';
+import { InitGameState, ShuffleGameState, addScore, fetchGameState, findKillerIdFromKilledId, killLogic, updateGameState } from '$lib/Games.js';
 
 export const actions = {
     delete_game: async ({ request, locals: { supabase }, params }) => {
@@ -177,5 +177,45 @@ export const actions = {
         const game_id = params.game_id as unknown as number;
 
         return ShuffleGameState(supabase, game_id);
+    },
+
+    quit_game: async ({ request, locals: { supabase, getSession }, params }) => {
+        let session = await getSession();
+        const game_id = params.game_id as unknown as number;
+
+        const {data, error} = await supabase
+            .from("games")
+            .select()
+            .eq("id", game_id)
+            .single();
+
+        if (data.user_id == session.user.id){
+            return fail(500, { message: "You can't leave the game as admin", success: false })
+        }
+
+        await supabase
+            .from("players")
+            .delete()
+            .eq("game_id", game_id)
+            .eq("user_id", session.user.id);
+        
+        let {state} = await fetchGameState(supabase, game_id);
+
+        let killer_id = findKillerIdFromKilledId(session.user.id, state.loop);
+        if (killer_id){
+            state.loop[killer_id] = state.loop[session.user.id];
+            
+            state.loop[session.user.id].killed_by_id = "Quit Game";
+            state.loop[session.user.id].is_dead = true;
+            state['#alive_players'] -= 1;
+    
+            await updateGameState(supabase, game_id, state);
+
+            throw redirect(302, "/");
+        }
+        else{
+            return fail(500, { message: "An error occured", success: false })
+        }
+
     },
 }

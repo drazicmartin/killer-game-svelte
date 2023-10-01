@@ -85,7 +85,7 @@ Each of the APIs are available through the the same API gateway:
 - [X] Add score
 - [X] People must not have same mission has their target mission.
 - [X] Allow dead to follow the game state
-- [ ] Quit game
+- [X] Quit game
 - [ ] Power up
     - [ ] change mission
 - [ ] Direct message system between killer and target

@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { fail } from "@sveltejs/kit";
+import { user } from "./UserStore";
 
 export function GetGameStatusColor(game) {
     if (game?.is_finish) return "red"
@@ -202,10 +203,8 @@ export async function addScore(supabase: SupabaseClient, game_id: number, player
         .eq("user_id", player_id);
 }
 
-export async function killLogic(supabase: SupabaseClient, game_id: number, killed_player_id: string, killer_player_id: string) {
+export async function killLogic(supabase: SupabaseClient, game_id: number, killed_player_id: string, killer_player_id: string, add_score : boolean = true) {
     let { state } = await fetchGameState(supabase, game_id);
-
-    addScore(supabase, game_id, killer_player_id);
 
     setPlayerDead(supabase, game_id, killed_player_id);
 
@@ -222,4 +221,14 @@ export async function killLogic(supabase: SupabaseClient, game_id: number, kille
     state['#alive_players'] -= 1;
 
     await updateGameState(supabase, game_id, state);
+}
+
+export function findKillerIdFromKilledId(killed_id : string, game_loop : Object){
+    let killer_id;
+    Object.keys(game_loop).forEach((user_id) => {
+        console.log(game_loop[user_id].target_id, killed_id);
+
+        if (game_loop[user_id].target_id == killed_id) killer_id = user_id;
+    });
+    return killer_id;
 }

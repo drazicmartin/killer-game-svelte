@@ -18,6 +18,7 @@
     let change_name_form;
     let delete_user_form;
     let reset_game_form;
+    let quit_game_form;
     let shuffle_game_form;
 
     let delete_user_name;
@@ -117,6 +118,20 @@
     function handleSubmitShuffleGameState(){
         modalStore.trigger(modal_shuffle_game_state);
     }
+
+    let modal_quit_game: ModalSettings; 
+    $: modal_quit_game = {
+        type: 'confirm',
+        // Data
+        title: `Confirm Shuffle Game State ?`,
+        body: 'Are you sure you wish to proceed?',
+        // TRUE if confirm pressed, FALSE if cancel pressed
+        response: (r: boolean) => r ? quit_game_form.submit() : null,
+    };
+    
+    function handleSubmitQuitGame(){
+        modalStore.trigger(modal_quit_game);
+    }
 </script>
 
 <section>
@@ -213,7 +228,7 @@
             <svelte:fragment slot="lead"><div class="h-5"><MdLockOutline /></div></svelte:fragment>
             <svelte:fragment slot="summary">Player Password</svelte:fragment>
             <svelte:fragment slot="content">
-                <form bind:this={change_password_game_form} method="POST" action="?/change_password" on:submit|preventDefault={handleSubmitChangePassword} class="flex flex-col items-center justify-center mx-2">
+                <form bind:this={quit_game_form} method="POST" action="?/change_password" on:submit|preventDefault={handleSubmitQuitGame} class="flex flex-col items-center justify-center mx-2">
                     <input type="password" name="current_password" required class="input grow max-w-2xl mt-2 text-center" placeholder="current password : (default='password') " >
                     <input type="password" name="new_password" required class="input grow max-w-2xl mt-2 text-center" placeholder="new password">
                     <button
@@ -242,6 +257,21 @@
                         class="btn grow max-w-2xl mt-2 hover:border-green-500 hover:border-solid hover:bg-white hover:text-green-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-green-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
                     >
                         Change name
+                    </button>
+                </form>
+            </svelte:fragment>
+        </AccordionItem>
+
+        <AccordionItem >
+            <svelte:fragment slot="lead"><div class="h-5"><MdAccountCircle /></div></svelte:fragment>
+            <svelte:fragment slot="summary">Quit Game</svelte:fragment>
+            <svelte:fragment slot="content">
+                <form bind:this={quit_game_form} method="POST" action="?/quit_game" on:submit|preventDefault={handleSubmitQuitGame} class="flex flex-col items-center justify-center mx-2">
+                    <button
+                        type="submit"
+                        class="btn grow max-w-2xl mt-2 hover:border-red-500 hover:border-solid hover:bg-white hover:text-red-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-double border-red-300 text-sm leading-6 text-slate-900 font-medium py-3 px-8 bg-white"
+                    >
+                        Quit
                     </button>
                 </form>
             </svelte:fragment>
