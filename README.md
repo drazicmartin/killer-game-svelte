@@ -80,12 +80,16 @@ Each of the APIs are available through the the same API gateway:
 - [X] Init the game
 - [X] Shuffle Game State
 - [X] Game admin settings
+    - [ ] Start game
+    - [ ] End game
 - [X] Game player settings
+    - [X] Change user name
+    - [X] Change game password
+    - [X] Quit game
 - [X] Kill logic
 - [X] Add score
 - [X] People must not have same mission has their target mission.
 - [X] Allow dead to follow the game state
-- [X] Quit game
 - [ ] Power up
     - [ ] change mission
 - [ ] Direct message system between killer and target
