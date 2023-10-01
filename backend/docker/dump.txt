@@ -1,4 +1,4 @@
--- from :  pg_dump --username postgres --schema=public -s
+-- from : pg_dump --username postgres --schema=public -s
 --
 -- PostgreSQL database dump
 --
@@ -259,9 +259,9 @@ CREATE POLICY "Enable delete for users based on user_id" ON public.games FOR DEL
 -- Name: players Enable delete for users based on user_id; Type: POLICY; Schema: public; Owner: supabase_admin
 --
 
-CREATE POLICY "Enable delete for users based on user_id" ON public.players FOR DELETE TO authenticated USING ((( SELECT games.user_id
+CREATE POLICY "Enable delete for users based on user_id" ON public.players FOR DELETE TO authenticated USING (((auth.uid() = user_id) OR (( SELECT games.user_id
    FROM public.games
-  WHERE (games.id = players.game_id)) = auth.uid()));
+  WHERE (games.id = players.game_id)) = auth.uid())));
 
 
 --
