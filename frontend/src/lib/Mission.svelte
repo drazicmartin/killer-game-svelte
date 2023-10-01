@@ -47,6 +47,8 @@
             </p>
             {/if}
         </div>
-        <slot name="kill_form"/>
+        {#if target_name != "TARGET NAME" }
+            <slot name="kill_form"/>
+        {/if} 
     </div>
 </div>
