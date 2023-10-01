@@ -6,20 +6,22 @@ Killer Game app with svelte
 
 # Init repo
 
-## Front
+## Frontend
 ```
 cd frontend
 cp .env.example .env
-npm install
+npm i
 ```
 
-## Back
+## Backend
 ```
 cd backend\docker
 cp .env.example .env
 ```
 
-Populate `frontend\.env` with corresponding values in `backend\docker\.env`
+- Populate `frontend\.env` with corresponding values in `backend\docker\.env`
+
+- Copy content of `/backend/dump.txt` and paste-it in SQL Editor of supabase.
 
 # Development
 
@@ -78,8 +80,10 @@ Each of the APIs are available through the the same API gateway:
 - [ ] Quit game
 - [ ] Power up
     - [ ] change mission
-- [ ] Direct message system between killer and target
-- [ ] Add leaderboard
+- [ ] Direct message system between killer and target   
+
+
+PGPASSWORD=pg_password pg_dump --username postgres $POSTGRES_DB
 
 ## Contributors
 - [Drazic MARTIN](https://github.com/drazicmartin)
