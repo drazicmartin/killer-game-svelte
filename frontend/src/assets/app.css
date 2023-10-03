@@ -5050,11 +5050,6 @@ input[type='file']:not(.file-dropzone-input)::file-selector-button:disabled:acti
   border-color: rgb(134 239 172 / var(--tw-border-opacity));
 }
 
-.border-indigo-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(79 70 229 / var(--tw-border-opacity));
-}
-
 .border-red-300 {
   --tw-border-opacity: 1;
   border-color: rgb(252 165 165 / var(--tw-border-opacity));
