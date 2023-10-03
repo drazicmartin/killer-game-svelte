@@ -37,6 +37,7 @@
     "@sveltejs/adapter-auto": "^2.1.0",
     "@sveltejs/kit": "^1.23.0",
     "p5-svelte": "^3.1.2",
-    "svelte-icons": "^2.1.0"
+    "svelte-icons": "^2.1.0",
+    "tw-elements": "^1.0.0"
   }
 }
