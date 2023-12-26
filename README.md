@@ -92,6 +92,7 @@ Each of the APIs are available through the the same API gateway:
 - [X] Allow dead to follow the game state
 - [ ] Power up
     - [ ] change mission
+    - [ ] Ask AI advise on your mission
 - [ ] Direct message system between killer and target
 
 ## Contributors
